@@ -1,12 +1,14 @@
 import argparse
+import os
 from data_folder_setup.projectsetup import ProjectSetup
 
 print("Welcome! Time to download files and create folders")
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-b", "--base_folder", help="Base Direcctory where folders will be created", type=str)
+parser.add_argument("-b", "--base_folder", help="Base Directory where folders will be created", type=str)
 parser.add_argument("-u", "--url", help="Write URL", type=str)
+parser.add_argument("-t", "--type", help="Type of File (Zip or File)", type=str)
 args = parser.parse_args()
 
 if args.base_folder:
@@ -18,6 +20,11 @@ if args.base_folder:
 
     if args.url:
         url = args.url.replace(" ", "")
-        setup.download_single_file(url=url, folder=names[0])
+        if args.type:
+            if args.type is "Zip":
+                setup.download_zip_file(url, os.path.join(base_folder, names[0]), "zipfile")
+            setup.download_single_file(url=url, folder=os.path.join(base_folder, names[0]))
+        else:
+            print("You did not include a file type ('Zip' or 'File')")
 else:
     print("Try again with a base folder")
