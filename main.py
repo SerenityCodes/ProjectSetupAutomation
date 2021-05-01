@@ -22,8 +22,9 @@ if args.base_folder:
         url = args.url.replace(" ", "")
         if args.type:
             if args.type is "Zip":
-                setup.download_zip_file(url, os.path.join(base_folder, names[0]), "zipfile")
-            setup.download_single_file(url=url, folder=os.path.join(base_folder, names[0]))
+                setup.download_zip_file(url, names[0], "zipfile")
+            elif args.type is "File":
+                setup.download_single_file(url=url, folder=names[0])
         else:
             print("You did not include a file type ('Zip' or 'File')")
 else:
